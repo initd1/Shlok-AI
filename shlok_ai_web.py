@@ -2,6 +2,7 @@ import openai
 from Common.utils import KeyFetcher
 from Common.utils import calculateCost
 
+
 def shlokAI(prompt):
     user_query = prompt
     keyfetch = KeyFetcher()
@@ -42,22 +43,12 @@ def shlokAI(prompt):
     print("Tokens Used: ", tokens_used)
 
     # Append Preparation response to messages
-    messages.append(
-        {
-            "role": "assistant",
-            "content": preparation_response
-        })
-    
+    messages.append({"role": "assistant", "content": preparation_response})
+
     # Query the model with user query
-    messages.append(
-        {
-            'role':'user',
-            'content':user_query
-        })    
-    completion = openai.ChatCompletion.create(
-        model=model,
-        messages = messages)
-    
+    messages.append({"role": "user", "content": user_query})
+    completion = openai.ChatCompletion.create(model=model, messages=messages)
+
     query_response = completion.choices[0].message["content"]
     tokens_used = tokens_used + completion.usage["total_tokens"]
     # TODO: Convert the below print statements to log statements using logger
@@ -70,6 +61,6 @@ def shlokAI(prompt):
     print("Cost: US$ ", cost)
     return query_response
 
+
 if __name__ == "__main__":
     shlokAI()
-
