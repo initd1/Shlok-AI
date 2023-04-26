@@ -1,5 +1,5 @@
-from Flask import Flask, jsonify, request
 from . import shlok_ai_web
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
