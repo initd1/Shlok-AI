@@ -1,7 +1,13 @@
+import signal, sys
+import logging
 import openai
 from Common.utils import KeyFetcher
 from Common.utils import CostCalculator
 
+def signal_handler(signal, frame):
+    print("You have requested to exit the program using Ctrl+C. Exiting.")
+    logging.info("You have requested to exit the program using Ctrl+C. Exiting.")
+    sys.exit(0)
 
 def shlokAI():
     keyfetch = KeyFetcher()
@@ -69,4 +75,5 @@ def shlokAI():
 
 
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, signal_handler)
     shlokAI()

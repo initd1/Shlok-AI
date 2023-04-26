@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import {InputGroup, FormControl, Button} from 'react-bootstrap';
 import axios from 'axios';
+import SearchBar from './SearchBar';
 
 function ShlokaForm() {
   const [question, setQuestion] = useState('');
@@ -11,5 +13,19 @@ function ShlokaForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}/>)
-  }
+    <div className="d-flex justify-content-center mt-5">
+      <InputGroup style={{ width: "50%" }}>
+        <FormControl 
+          placeholder="Ask a question"
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+        />
+        <Button variant="primary" type="submit" onClick={handleSubmit}>
+          Submit
+        </Button>
+      </InputGroup>
+    </div>
+  );
+}
+
+export default ShlokaForm;

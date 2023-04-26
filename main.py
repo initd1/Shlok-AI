@@ -6,8 +6,8 @@ from run import shlok_ai_web
 
 
 def signal_handler(signal, frame):
-    print("You pressed Ctrl+C!")
-    logging.info("You pressed Ctrl+C!")
+    print("You have requested to exit the program using Ctrl+C. Exiting.")
+    logging.info("You have requested to exit the program using Ctrl+C. Exiting.")
     sys.exit(0)
 
 

@@ -50,6 +50,7 @@ def shlokAI(prompt):
     completion = openai.ChatCompletion.create(model=model, messages=messages)
 
     query_response = completion.choices[0].message["content"]
+    print("Current Tokens Used before adding query response: ", tokens_used)
     tokens_used = tokens_used + completion.usage["total_tokens"]
     # TODO: Convert the below print statements to log statements using logger
     print("Response: \n", query_response)
