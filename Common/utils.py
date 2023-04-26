@@ -4,7 +4,6 @@ import sys
 from Config.config import configure_logging
 import logging
 
-
 configure_logging()
 
 
@@ -19,24 +18,29 @@ def exit_message(exitmsg):
     exit()
 
 
-def calculateCost(self, token_count, model_name):
-    # Mapping of cost per token to model
-    # gpt-3.5-turbo: 0.00000000000
-    # Create a dictionary of model name and cost per token and add 3 more models
+class CostCalculator:
+    def __init__(self, token_count, model_name):
+        self.token_count = token_count
+        self.model_name = model_name
 
-    model_cost = {
-        "gpt-4": 0.03,
-        "gpt-3.5-turbo": 0.002,
-        "ada": 0.0004,
-        "curie": 0.0020,
-        "babbage": 0.0005,
-        "davinci": 0.02,
-        # Audio models charged per minute
-        "whisper": 0.006,
-    }
-    cost_per_token = model_cost[model_name]
-    cost = (token_count / 1000) * cost_per_token
-    return cost
+    def calculateCost(self, token_count, model_name):
+        # Mapping of cost per token to model
+        # gpt-3.5-turbo: 0.00000000000
+        # Create a dictionary of model name and cost per token and add 3 more models
+
+        model_cost = {
+            "gpt-4": 0.03,
+            "gpt-3.5-turbo": 0.002,
+            "ada": 0.0004,
+            "curie": 0.0020,
+            "babbage": 0.0005,
+            "davinci": 0.02,
+            # Audio models charged per minute
+            "whisper": 0.006,
+        }
+        cost_per_token = model_cost[model_name]
+        cost = (token_count / 1000) * cost_per_token
+        return cost
 
 
 class KeyFetcher:

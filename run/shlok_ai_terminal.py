@@ -3,8 +3,7 @@ from Common.utils import KeyFetcher
 from Common.utils import CostCalculator
 
 
-def shlokAI(prompt):
-    user_query = prompt
+def shlokAI():
     keyfetch = KeyFetcher()
     openai.api_key = keyfetch.getOpenAIApiKey()
     print(openai.api_key)
@@ -49,8 +48,8 @@ def shlokAI(prompt):
             loop_count += 1
         # Until 2 iterations, no need to remind the AI of it's purpose
         elif loop_count <= 2:
-            # prompt = input('\nAsk a question: ')
-            messages.append({"role": "user", "content": user_query})
+            prompt = input("\nAsk a question: ")
+            messages.append({"role": "user", "content": prompt})
             completion = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo", messages=messages
             )

@@ -1,6 +1,6 @@
 import openai
 from Common.utils import KeyFetcher
-from Common.utils import calculateCost
+from Common.utils import CostCalculator
 
 
 def shlokAI(prompt):
@@ -55,8 +55,9 @@ def shlokAI(prompt):
     print("Response: \n", query_response)
     print("Total Tokens Used: ", tokens_used)
 
-    # Calculate cost
-    cost = calculateCost(tokens_used, model_name=model)
+    # Instantiate CostCalculator
+    costcalc = CostCalculator(tokens_used, model)
+    cost = costcalc.calculateCost(tokens_used, model_name=model)
     # Convert to logger
     print("Cost: US$ ", cost)
     return query_response
