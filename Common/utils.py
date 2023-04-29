@@ -60,3 +60,18 @@ class KeyFetcher:
             exit_message("OpenAI API Key could not be retrieved")
         else:
             return OPENAI_API_KEY
+
+    def getOpenAIModel(self):
+        config = configparser.ConfigParser()
+        if config.read("Config/config.ini", encoding="utf-8"):
+            pass
+        try:
+            model = config["OPENAI"]["MODEL"]
+        except Exception as err:
+            logging.critical(str(err))
+            print(str(err))
+        if model == "":
+            model = "gpt-3.5-turbo"
+        else:
+            model = model
+        return model
