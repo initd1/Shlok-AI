@@ -1,8 +1,10 @@
-import signal, sys
+import signal, sys, json
 import logging
 import openai
+import configparser
 from Common.utils import KeyFetcher
 from Common.utils import CostCalculator
+
 
 def signal_handler(signal, frame):
     print("You have requested to exit the program using Ctrl+C. Exiting.")
@@ -12,67 +14,73 @@ def signal_handler(signal, frame):
 def shlokAI():
     keyfetch = KeyFetcher()
     openai.api_key = keyfetch.getOpenAIApiKey()
-    print(openai.api_key)
-    messages = []
-    prompt_training_count = 0
-    loop_count = 0
     while True:
-        if loop_count == 0:
-            messages.append(
-                {
-                    "role": "user",
-                    "content": """
-                    You are a scholar in sanskrit who has been practising vedic dharma and also been a professor of vedic studies in a premium institution, where pupils inclined in the thirst for knowledge of the Hindu Vedic Brahmanic culture and virtues seek your guidance. You have also been teaching Sanskrit to students from the basic level to intermediate. You can easily translate any given sanskrit verse, typed in english, or sanskrit script and would like to endeavour to help the masses understand  the various shlokas that are relevant to leading a good life taken from sacred texts such as Bhagavat Gita, Vishnu Purana, Vedas,Upanishads  etc. We seek your deep knowledge and understanding in Sanatana Dharma as a great boon to our society. I will be asking you the meaning of any verse I come across and would like you to give me an easy to understand translation in english including additional details such as Relevance, Context of the shloka/verse, and Occasion that it is used for, and which scripture it was taken from:
-                    Below is the format:
-                    - Verse in Sanskrit script
-                    - Verse in Tamil script
-                    - Translation 
-                    - Relevance
-                    - Context
-                    - Occasion/Usage of verse
-                    - Source scripture with verse or chapter number if possible
-                    I just want you to respond with 'Namaste' and wait for the sankrit verse to translate. I do not want you to give me any disclaimers that you are not an expert
-                    """,
-                }
-            )
+        shlok_ai_instructions = f"""
+        You are a practising Hindu scholar in Sanskrit well versed in Vedic Dharma. You are well versed in all the sacred scriptures such as \
+        Bhagavat Gita, Puranas, Vedas, Stotras, Upanishads, 4000 Divya Prabandham, etc. I will be asking you the meaning of any verse \
+        and would like you to give me an easy to understand explanation. 
 
-            # Query the model
-            preparation_prompt = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=messages,
-                max_tokens=1024,
-                temperature=0.8,
-            )
+        Only respond with the message: \"Namaste, I am ready to help you with your query regarding any Shloka\".                                                       
 
-            response = preparation_prompt.choices[0].message["content"]
-            print("Introductory response: ", response)
-            print("Tokens Used: ", preparation_prompt.usage["total_tokens"])
+        Output in JSON format with keys as below:
+        - Verse in Sanskrit script
+        - Verse in Tamil script
+        - Translation 
+        - Relevance
+        - Context
+        - Usage of Verse
+        - Source Scripture with Verse or Chapter Number if available. 
 
-            messages.append({"role": "assistant", "content": response})
-            # print("Current message: ", messages[0])
-            # print("\n\nNext message: ", messages[1])
-            loop_count += 1
-        # Until 2 iterations, no need to remind the AI of it's purpose
-        elif loop_count <= 2:
-            prompt = input("\nAsk a question: ")
-            messages.append({"role": "user", "content": prompt})
-            completion = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo", messages=messages
-            )
-            print("Response: \n", completion.choices[0].message["content"])
-            print("Tokens Used: ", completion.usage["total_tokens"])
-            messages.append({"role": "assistant", "content": response})
+        Follow the below conditions while providing the output:
+        1. There must be no extra information in the output except for what the output format requires. 
+        2. If any value for the required keys is not available, do not add the key in the JSON output.
+        3. If you are unable to provide an explanation for an input, please output response in JSON format with the key \"Error\" and explain \
+        why you are unable to provide an explanation.
+        4. Do not provide any disclaimers that you are not an expert or scholar.
+        """
 
-            # Reset the loop count when it reaches 5, so that the model can be reminded of it's purpose
-            # User can continue asking questions
+        user_prompt = input("\nAsk a question: ")
+        # messages.append({"role": "user", "content": user_prompt})
+        # print(messages)
+        prompt = f"""
+        Follow the instructions delimited by triple backticks carefully. \
+        Instructions: ```{shlok_ai_instructions}``` \
+        Respond to user query delimited by angle brackets: <{user_prompt}>
+        """
 
-            # Thoughts: It doesn't remember the original instruction, so may have to reduce the count to 2 or 3 and increase the max_tokens
-            # in the query
-            if loop_count == 2:
-                print("You have asked 2 questions, please wait for the AI to respond")
-                loop_count = 0
-                print("Exiting the program")
+        # Query the model
+        messages = [{"role": "user", "content": prompt}]
+        response_raw = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages,
+            temperature=0, # this is the degree of randomness of the model's output
+            stream=True
+        )
+        # Stream output as it's generated
+        # create variables to collect the stream of chunks
+        collected_chunks = []
+        collected_messages = []
+        for chunk in response_raw:
+            try: 
+                content = chunk["choices"][0]["delta"]["content"]
+                if content:
+                    collected_chunks.append(content)
+                    # Do not print every chunk in new line
+                    print(content, end="", flush=True)
+            except:
+                pass
+ 
+        # Strip extra characters from final output        
+        response_content = ''.join(collected_chunks).strip()
+        print("Tokens used for this prompt: ", response_raw.usage["total_tokens"])
 
+        shlokai_output = json.loads(response_content)
+        
+        # Separate output into different variables if required for front end
+        # if shlokai_output["Relevance"]:
+        #     print(shlokai_output["Relevance"])
+        # else:
+        #     pass
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
