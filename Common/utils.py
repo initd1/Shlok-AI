@@ -4,8 +4,8 @@ import sys
 from Config.config import configure_logging
 import logging
 
-
 configure_logging()
+
 
 def error_message(errormsg):
     logging.error(colored("Error: " + errormsg, "red"))
@@ -16,6 +16,32 @@ def error_message(errormsg):
 def exit_message(exitmsg):
     logging.critical("\033[91m{}\033[0m".format("Fatal Error: " + exitmsg))
     exit()
+
+
+class CostCalculator:
+    def __init__(self, token_count, model_name):
+        self.token_count = token_count
+        self.model_name = model_name
+
+    def calculateCost(self, token_count, model_name):
+        # Mapping of cost per token to model
+        # gpt-3.5-turbo: 0.00000000000
+        # Create a dictionary of model name and cost per token and add 3 more models
+
+        model_cost = {
+            "gpt-4": 0.03,
+            "gpt-3.5-turbo": 0.002,
+            "ada": 0.0004,
+            "curie": 0.0020,
+            "babbage": 0.0005,
+            "davinci": 0.02,
+            # Audio models charged per minute
+            "whisper": 0.006,
+        }
+        cost_per_token = model_cost[model_name]
+        cost = (token_count / 1000) * cost_per_token
+        return cost
+
 
 class KeyFetcher:
     def getOpenAIApiKey(self):
@@ -34,11 +60,3 @@ class KeyFetcher:
             exit_message("OpenAI API Key could not be retrieved")
         else:
             return OPENAI_API_KEY
-
-class CostCalculator:
-    def __init__(self):
-        self.token_count = token_count
-        self.cost_per_token = cost_per_token
-
-    def calculateCost(self, token_count, cost_per_token):
-        return token_count * cost_per_token 

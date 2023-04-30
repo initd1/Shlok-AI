@@ -13,7 +13,7 @@ def get_config(config_file_path):
 
     Returns:
         _type_: _description_
-    """    
+    """
     """Read configuration from file and environment variables.  
 
     :param str config_file_path: path to the configuration file
@@ -41,7 +41,7 @@ def get_logging_config(file_location="Config/logger.ini"):
 
     Returns:
         _dict_: _logging configuration as a dictionary_
-    """    
+    """
     try:
         open(file_location, "r")
     except FileNotFoundError:

@@ -1,8 +1,15 @@
+import signal, sys
+import logging
 import openai
 from Common.utils import KeyFetcher
 from Common.utils import CostCalculator
 
-def shlokaSageAI():
+def signal_handler(signal, frame):
+    print("You have requested to exit the program using Ctrl+C. Exiting.")
+    logging.info("You have requested to exit the program using Ctrl+C. Exiting.")
+    sys.exit(0)
+
+def shlokAI():
     keyfetch = KeyFetcher()
     openai.api_key = keyfetch.getOpenAIApiKey()
     print(openai.api_key)
@@ -31,43 +38,35 @@ def shlokaSageAI():
 
             # Query the model
             preparation_prompt = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo", messages=messages, max_tokens=1024, temperature=0.8
+                model="gpt-3.5-turbo",
+                messages=messages,
+                max_tokens=1024,
+                temperature=0.8,
             )
 
             response = preparation_prompt.choices[0].message["content"]
             print("Introductory response: ", response)
             print("Tokens Used: ", preparation_prompt.usage["total_tokens"])
 
-            messages.append(
-                {
-                    "role": "assistant",
-                    "content": response
-                })
+            messages.append({"role": "assistant", "content": response})
             # print("Current message: ", messages[0])
             # print("\n\nNext message: ", messages[1])
             loop_count += 1
         # Until 2 iterations, no need to remind the AI of it's purpose
         elif loop_count <= 2:
-            prompt = input('\nAsk a question: ')     
-            messages.append(
-                {
-                    'role':'user',
-                    'content':prompt
-                })    
+            prompt = input("\nAsk a question: ")
+            messages.append({"role": "user", "content": prompt})
             completion = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages = messages)
+                model="gpt-3.5-turbo", messages=messages
+            )
             print("Response: \n", completion.choices[0].message["content"])
             print("Tokens Used: ", completion.usage["total_tokens"])
-            messages.append(
-                {
-                    "role": "assistant",
-                    "content": response
-                })
+            messages.append({"role": "assistant", "content": response})
+
             # Reset the loop count when it reaches 5, so that the model can be reminded of it's purpose
             # User can continue asking questions
 
-            # Thoughts: It doesn't remember the original instruction, so may have to reduce the count to 2 or 3 and increase the max_tokens 
+            # Thoughts: It doesn't remember the original instruction, so may have to reduce the count to 2 or 3 and increase the max_tokens
             # in the query
             if loop_count == 2:
                 print("You have asked 2 questions, please wait for the AI to respond")
@@ -76,5 +75,5 @@ def shlokaSageAI():
 
 
 if __name__ == "__main__":
-    shlokaSageAI()
-    # cost = calculateCost()
+    signal.signal(signal.SIGINT, signal_handler)
+    shlokAI()
