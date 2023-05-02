@@ -22,7 +22,8 @@ def shlokAI():
 
         Only respond with the message: \"Namaste, I am ready to help you with your query regarding any Shloka\".                                                       
 
-        Output in JSON format with keys as below:
+        Output format in JSON:
+        - Verse in English script        
         - Verse in Sanskrit script
         - Verse in Tamil script
         - Translation 
@@ -31,19 +32,21 @@ def shlokAI():
         - Usage of Verse
         - Source Scripture with Verse or Chapter Number if available. 
 
-        Follow the below conditions while providing the output:
-        1. There must be no extra information in the output except for what the output format requires. 
-        2. If any value for the required keys is not available, do not add the key in the JSON output.
-        3. If you are unable to provide an explanation for an input, please output response in JSON format with the key \"Error\" and explain \
+        Follow the below conditions step by step, while providing the output:
+        1. If the question is too generic or unrelated to India, Bharat, Vedic, Spirituality, Hinduism, Culture etc., please respond with the message: \
+        <I am unable to provide an explanation for this query. Please ask a question related to India, Bharat, Vedic, Spirituality, Hinduism, Culture etc.>
+        2. There must be no extra text except for what the output format requires.
+        3. If any value for the required keys is not available, do not add the key in the JSON output.
+        4. If you are unable to provide an explanation for an input, please output response in JSON format with the key \"Error\" and explain \
         why you are unable to provide an explanation.
-        4. Do not provide any disclaimers that you are not an expert or scholar.
+        5. Do not provide any disclaimers that you are not a scholar in the subject.
         """
 
         user_prompt = input("\nAsk a question: ")
         # messages.append({"role": "user", "content": user_prompt})
         # print(messages)
         prompt = f"""
-        Follow the instructions delimited by triple backticks carefully. \
+        Follow the instructions delimited by triple backticks step by step. \
         Instructions: ```{shlok_ai_instructions}``` \
         Respond to user query delimited by angle brackets: <{user_prompt}>
         """
@@ -69,11 +72,19 @@ def shlokAI():
                     print(content, end="", flush=True)
             except:
                 pass
- 
+        print(collected_chunks)
         # Strip extra characters from final output        
         response_content = ''.join(collected_chunks).strip()
+        print(response_content)
         print("Tokens used for this prompt: ", response_raw.usage["total_tokens"])
 
+        # Check if response_content is proper json format
+        try:
+            json.loads(response_content)
+        except:
+            print("Response is not in proper JSON format. Please try again.")
+            continue
+        
         shlokai_output = json.loads(response_content)
         
         # Separate output into different variables if required for front end
