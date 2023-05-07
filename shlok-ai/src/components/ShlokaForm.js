@@ -18,6 +18,7 @@ function ShlokaForm() {
       <form onSubmit={handleSubmit}>
         <InputGroup className="shloka-input-group">
           <FormControl 
+            className="search-bar"
             placeholder="Ask a question"
             value={prompt}
             onChange={(e) => setQuestion(e.target.value)}
