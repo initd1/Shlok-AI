@@ -16,8 +16,9 @@ def serve(path):
         return send_from_directory('build', 'index.html')
 
 @app.route("/api/shloka-prompt", methods=["POST"])
-def shloka_sage_ai(prompt):
+def shloka_sage_ai():
     prompt = request.form["prompt"]
+    print(prompt)
     result = shlok_ai_web.shlokAI(prompt)
     return jsonify(result=result)
 
@@ -28,4 +29,4 @@ def signal_handler(signal, frame):
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
-    app.run()
+    app.run(debug=True)

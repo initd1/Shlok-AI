@@ -64,5 +64,5 @@ def shlokAI(prompt):
     return query_response
 
 
-if __name__ == "__main__":
-    shlokAI()
+# if __name__ == "__main__":
+#     shlokAI(prompt)
