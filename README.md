@@ -37,6 +37,13 @@ pip install -r requirements.txt
     MODEL=
     ```
 
+## Start Shlok-AI
+1. Execute Flask API script so the API Endpoints are made available
+    - `python api.py`
+2. From the home folder of the npm app,
+    - `cd shlok-ai` 
+    - `npm run start`
+
 ## Testing
 
 It is important that before you do anything you have the `requirements.txt` file
