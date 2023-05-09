@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {InputGroup, Button} from 'react-bootstrap';
 import Textarea from 'rc-textarea';
 import axios from 'axios';
+import { SearchOutlined } from '@ant-design/icons';
 // import SearchBar from './SearchBar';
 import '../App.css';
 
@@ -17,8 +18,8 @@ function ShlokaForm() {
   return (
     <div className="text-center mt-5">
       <form onSubmit={handleSubmit}>
-        <InputGroup className="shloka-search-bar">
-          <Textarea 
+        <InputGroup>
+          <Textarea
             placeholder="Ask a question"
             value={prompt}
             onChange={(e) => setQuestion(e.target.value)}
@@ -32,7 +33,7 @@ function ShlokaForm() {
             type="submit" 
             onClick={handleSubmit}
           > 
-            Submit
+            <SearchOutlined />
           </Button>
         </InputGroup>
       </form>
