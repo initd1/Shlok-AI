@@ -8,11 +8,18 @@ import '../App.css';
 
 function ShlokaForm() {
   const [prompt, setQuestion] = useState('');
+  const [result, setResult] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post('/api/shloka-prompt', { prompt });
-    console.log(response.data);
+    try {
+      const response = await axios.post('http://localhost:5000/api/shloka-prompt', { prompt });
+      setResult(response.data.result);
+      console.log(response.data);
+    }
+    catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -21,6 +28,7 @@ function ShlokaForm() {
         <InputGroup>
           <Textarea
             placeholder="Ask a question"
+            name="prompt"
             value={prompt}
             onChange={(e) => setQuestion(e.target.value)}
             autoSize
@@ -37,6 +45,13 @@ function ShlokaForm() {
           </Button>
         </InputGroup>
       </form>
+      
+      {result && (
+        <div>
+          <h2>Result</h2>
+          <p>{result}</p>
+        </div>
+      )}
     </div>
   );
 }

@@ -63,7 +63,11 @@ const MainLayout = () => {
               padding: 24,
               margin: 0,
               minHeight: 1200,
-              theme: 'dark'
+              // backgroundImage: "url('background.jpg')",
+              // backgroundSize: 'cover',
+              // backgroundRepeat: 'no-repeat',
+              // backgroundPosition: 'center',
+
             }}
           >
             <Typography className="text-center mt-5">
