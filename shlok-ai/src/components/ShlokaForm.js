@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import {InputGroup, FormControl, Button} from 'react-bootstrap';
+import {InputGroup, Button} from 'react-bootstrap';
+import Textarea from 'rc-textarea';
 import axios from 'axios';
-import SearchBar from './SearchBar';
+// import SearchBar from './SearchBar';
 import '../App.css';
 
 function ShlokaForm() {
@@ -14,17 +15,19 @@ function ShlokaForm() {
   };
 
   return (
-    <div className="d-flex justify-content-center mt-5">
+    <div className="text-center mt-5">
       <form onSubmit={handleSubmit}>
-        <InputGroup className="shloka-input-group">
-          <FormControl 
-            className="search-bar"
+        <InputGroup className="shloka-search-bar">
+          <Textarea 
             placeholder="Ask a question"
             value={prompt}
             onChange={(e) => setQuestion(e.target.value)}
+            autoSize
+            rows={3}
+            className="search-bar"
           />
           <Button 
-            className="shloka-submit-button" 
+            className="btn btn-primary shloka-submit-button" 
             variant="primary"
             type="submit" 
             onClick={handleSubmit}
