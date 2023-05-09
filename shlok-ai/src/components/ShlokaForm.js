@@ -69,14 +69,9 @@ function ShlokaForm() {
           description={result}
         />
       </Card>
-      {/* {result && (
-        <div>
-          <p>{result}</p>
-        </div>
-      )} */}
       <Card
         style={{
-          width: 300,
+          width: 650,
           marginTop: 16,
         }}
         actions={[
@@ -89,7 +84,7 @@ function ShlokaForm() {
           <Meta
             avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=2" />}
             title="Card title"
-            description="This is the description"
+            description={result}
           />
         </Skeleton>
       </Card>
