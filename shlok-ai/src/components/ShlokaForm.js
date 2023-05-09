@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import {InputGroup, Button} from 'react-bootstrap';
+import {InputGroup, Button } from 'react-bootstrap';
 import Textarea from 'rc-textarea';
 import axios from 'axios';
 import { SearchOutlined } from '@ant-design/icons';
+import { Card, Divider } from 'antd';
 // import SearchBar from './SearchBar';
 import '../App.css';
 
@@ -45,13 +46,14 @@ function ShlokaForm() {
           </Button>
         </InputGroup>
       </form>
-      
-      {result && (
-        <div>
-          <h2>Result</h2>
-          <p>{result}</p>
-        </div>
-      )}
+      <Divider />
+      <Card type="inner" title="Results" bordered={false}> 
+        {result && (
+          <div>
+            <p>{result}</p>
+          </div>
+        )}
+      </Card>
     </div>
   );
 }
