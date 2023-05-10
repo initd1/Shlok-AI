@@ -27,7 +27,7 @@ def shloka_sage_ai():
         return jsonify(result=result)
     except Exception as e:
         print(e)
-        return jsonify(result="Error")
+        return jsonify(result="Shlok-AI is currently unable to process your request. Please try again later.")
 
 def signal_handler(signal, frame):
     print("You have requested to exit the program using Ctrl+C. Exiting.")
