@@ -11,13 +11,14 @@ const { Meta } = Card;
 function ShlokaForm() {
   const [prompt, setQuestion] = useState('');
   const [result, setResult] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
  
-  const onChange = (checked) => {
+  const onChange = (checked) => {  
     setLoading(!checked);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post('http://localhost:5000/api/shloka-prompt', { prompt });
       setResult(response.data.result);
@@ -25,6 +26,9 @@ function ShlokaForm() {
     }
     catch (error) {
       console.log(error);
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -51,64 +55,45 @@ function ShlokaForm() {
           </Button>
         </InputGroup>
       </form>
+      <Divider />
       {loading && <div><LoadingOutlined />Loading</div>}
       {result && 
         <Card 
+          // type="inner" 
+          // title="Shlok-AI Responds ..." 
+          bordered={true}
+          // description={result}        
+          style={{
+            textAlign: 'center',
+            marginTop: 16
+          }}
+        >
+          <Meta
+            // avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />}
+            title="Shlok-AI Responds ..."
+            description={result}
+          />
+        </Card>}
+      <Divider />
+    <>
+      <Switch checked={!loading} onChange={onChange} />
+        <Card 
           type="inner" 
-          title="Shlok-AI Responds ..." 
+          // title="Shlok-AI Responds ..." 
           bordered={false}
           // description={result}        
           style={{
             textAlign: 'center',
             marginTop: 16
           }}
-          // loading={loading}
+          loading={loading}
         >
           <Meta
             // avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />}
             // title="Shlok-AI Responds ..."
             description={result}
           />
-        </Card>}
-      <Divider />
-    <>
-    <Switch checked={!loading} onChange={onChange} />
-      <Card 
-        type="inner" 
-        title="Shlok-AI Responds ..." 
-        bordered={false}
-        // description={result}        
-        style={{
-          textAlign: 'center',
-          marginTop: 16
-        }}
-        loading={loading}
-      >
-        <Meta
-          // avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />}
-          // title="Shlok-AI Responds ..."
-          description={result}
-        />
-      </Card>
-      {/* <Card
-        style={{
-          width: 650,
-          marginTop: 16,
-        }}
-        actions={[
-          <SettingOutlined key="setting" />,
-          <EditOutlined key="edit" />,
-          <EllipsisOutlined key="ellipsis" />,
-        ]}
-      >
-        <Skeleton loading={loading} avatar active>
-          <Meta
-            avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=2" />}
-            title="Shlok-AI Responds ..."
-            description={result}
-          />
-        </Skeleton>
-      </Card> */}
+        </Card>
     </>
     </div>
   );
