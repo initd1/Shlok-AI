@@ -4,7 +4,7 @@ import {InputGroup} from 'react-bootstrap';
 import Textarea from 'rc-textarea';
 import axios from 'axios';
 import { LoadingOutlined, SearchOutlined, EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
-import { Avatar, Card, Skeleton, Switch, Divider, Button } from 'antd';
+import { Card, Switch, Divider, Button } from 'antd';
 
 // import SearchBar from './SearchBar';
 const { Meta } = Card;
@@ -56,45 +56,40 @@ function ShlokaForm() {
         </InputGroup>
       </form>
       <Divider />
-      {loading && <div><LoadingOutlined />Loading</div>}
+      {/* While results are loading, display the loading card animation */}
+      {loading &&
+        <div>
+        <Switch checked={!loading} onChange={onChange} />
+          <Card 
+            type="inner" 
+            bordered={false}   
+            style={{
+              textAlign: 'center',
+              marginTop: 16
+            }}
+            loading={loading}
+          >        
+          </Card>
+        </div>
+      }
+      {/* Once results have loaded, display the results in the card in below */}
       {result && 
         <Card 
-          // type="inner" 
-          // title="Shlok-AI Responds ..." 
-          bordered={true}
-          // description={result}        
+          bordered={true}  
           style={{
             textAlign: 'center',
             marginTop: 16
           }}
         >
           <Meta
-            // avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />}
-            title="Shlok-AI Responds ..."
-            description={result}
-          />
-        </Card>}
-      <Divider />
-    <>
-      <Switch checked={!loading} onChange={onChange} />
-        <Card 
-          type="inner" 
-          // title="Shlok-AI Responds ..." 
-          bordered={false}
-          // description={result}        
-          style={{
-            textAlign: 'center',
-            marginTop: 16
-          }}
-          loading={loading}
-        >
-          <Meta
-            // avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />}
-            // title="Shlok-AI Responds ..."
-            description={result}
+            title={`Shlok-AI Responds to: "${prompt}"`}
+            description={
+              <p className='ai-response'>{result}</p>
+              }
           />
         </Card>
-    </>
+      }
+      <Divider />
     </div>
   );
 }

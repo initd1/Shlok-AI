@@ -112,6 +112,12 @@
   margin: 16px 0 16px 24px;
 }
 
+.ai-response {
+  font-family: cursive;
+  font-size: large;
+  font-weight: bold;
+  color: #eb8304e6;
+}
 .footer-style {
   word-spacing: 2px;
 }
