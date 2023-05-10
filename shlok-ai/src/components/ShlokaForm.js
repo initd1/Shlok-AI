@@ -1,10 +1,10 @@
 import '../App.css';
 import React, { useState } from 'react';
-import {InputGroup, Button } from 'react-bootstrap';
+import {InputGroup} from 'react-bootstrap';
 import Textarea from 'rc-textarea';
 import axios from 'axios';
-import { SearchOutlined, EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
-import { Avatar, Card, Skeleton, Switch, Divider } from 'antd';
+import { LoadingOutlined, SearchOutlined, EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { Avatar, Card, Skeleton, Switch, Divider, Button } from 'antd';
 
 // import SearchBar from './SearchBar';
 const { Meta } = Card;
@@ -12,6 +12,7 @@ function ShlokaForm() {
   const [prompt, setQuestion] = useState('');
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(true);
+ 
   const onChange = (checked) => {
     setLoading(!checked);
   };
@@ -50,26 +51,46 @@ function ShlokaForm() {
           </Button>
         </InputGroup>
       </form>
+      {loading && <div><LoadingOutlined />Loading</div>}
+      {result && 
+        <Card 
+          type="inner" 
+          title="Shlok-AI Responds ..." 
+          bordered={false}
+          // description={result}        
+          style={{
+            textAlign: 'center',
+            marginTop: 16
+          }}
+          // loading={loading}
+        >
+          <Meta
+            // avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />}
+            // title="Shlok-AI Responds ..."
+            description={result}
+          />
+        </Card>}
       <Divider />
-
-      {/* <Card type="inner" title="Results" bordered={false}> */}
     <>
-      <Switch checked={!loading} onChange={onChange} />
-      <Card type="inner" title="Query Results" bordered={false}
+    <Switch checked={!loading} onChange={onChange} />
+      <Card 
+        type="inner" 
+        title="Shlok-AI Responds ..." 
+        bordered={false}
+        // description={result}        
         style={{
           textAlign: 'center',
-          width: 650,
-          marginTop: 16,
+          marginTop: 16
         }}
         loading={loading}
       >
         <Meta
-          avatar={<Avatar src="veda-vyasa-logo.webp" />}
-          title="Query Results"
+          // avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />}
+          // title="Shlok-AI Responds ..."
           description={result}
         />
       </Card>
-      <Card
+      {/* <Card
         style={{
           width: 650,
           marginTop: 16,
@@ -83,11 +104,11 @@ function ShlokaForm() {
         <Skeleton loading={loading} avatar active>
           <Meta
             avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=2" />}
-            title="Card title"
+            title="Shlok-AI Responds ..."
             description={result}
           />
         </Skeleton>
-      </Card>
+      </Card> */}
     </>
     </div>
   );
