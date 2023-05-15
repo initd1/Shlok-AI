@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import {InputGroup} from 'react-bootstrap';
 import Textarea from 'rc-textarea';
 import axios from 'axios';
-import { LoadingOutlined, SearchOutlined, EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
-import { Card, Switch, Divider, Button } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+import { Card, Switch, Divider, Button, Alert } from 'antd';
 
 // import SearchBar from './SearchBar';
 const { Meta } = Card;
@@ -12,20 +12,26 @@ function ShlokaForm() {
   const [prompt, setQuestion] = useState('');
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
- 
+  const [error, setError] = useState(null);
   const onChange = (checked) => {  
     setLoading(!checked);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(null); // reset error message on new submit
     try {
-      const response = await axios.post('http://localhost:5000/api/shloka-prompt', { prompt });
+      const response = await axios.post('http://localhost:5001/api/shloka-prompt', { prompt });
+      // setResult(response.data.result);
+      // console.log(response.data);
       setResult(response.data.result);
       console.log(response.data);
     }
     catch (error) {
       console.log(error);
+      // display error message to user
+      console.log(error);
+      setError("An error occurred:" + error + "\nPlease try again later."); // set error message
     }
     finally {
       setLoading(false);
@@ -72,6 +78,8 @@ function ShlokaForm() {
           </Card>
         </div>
       }
+      {/* If an error occurred, display the error message */}
+      {error && <Alert message={error} type="error" />}
       {/* Once results have loaded, display the results in the card in below */}
       {result && 
         <Card 
