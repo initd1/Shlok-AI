@@ -6,7 +6,7 @@ from flask_cors import CORS
 import os
 
 app = Flask(__name__, static_folder='build')
-port = int(os.environ.get('PORT', 5000))
+port = int(os.environ.get('PORT', 5001))
 CORS(app)
 
 # @app.route('/', defaults={'path': ''})
