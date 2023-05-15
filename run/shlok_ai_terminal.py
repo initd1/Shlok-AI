@@ -30,7 +30,8 @@ def shlokAI():
         - Relevance
         - Context
         - Usage of Verse
-        - Source Scripture with Verse or Chapter Number if available. 
+        - Source Scripture with Verse or Chapter Number if available.
+        - Author
 
         Follow the below conditions step by step, while providing the output:
         1. If the question is too generic or unrelated to India, Bharat, Vedic, Spirituality, Hinduism, Culture etc., please respond with the message: \

@@ -25,6 +25,7 @@ def shlokAI(prompt):
             - Context
             - Occasion/Usage of verse
             - Source scripture with verse or chapter number if possible
+            - Author
             I just want you to respond with 'Namaste' and wait for the sankrit verse to translate. I do not want you to give me any disclaimers that you are not an expert
             """,
         }
