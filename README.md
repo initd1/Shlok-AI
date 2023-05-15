@@ -25,6 +25,21 @@ __Windows__
 pip install -r requirements.txt
 ```
 
+6. Ensure node and npm are installed in your environment
+
+<!-- 7. Install required packages in the npm app
+```bash
+cd shlok-ai
+npm install
+``` -->
+
+<!-- 8. Install required packages in the react app
+```bash
+cd shlok-ai
+
+```  -->
+
+
 ## Prerequisites
 1. Ensure `config.ini` file is created under Config directory
 2. Use `config.ini.template` file as a reference and fill the required details. 
