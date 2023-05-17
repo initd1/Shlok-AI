@@ -22,11 +22,13 @@ def shloka_sage_ai():
     try:
         data = request.get_json()
         prompt = data.get("prompt")
-        print(prompt)
+        print("Prompt: ", prompt)
         result = shlok_ai_web.shlokAI(prompt)
+        print("Result:", result)
         return jsonify(result=result)
     except Exception as e:
-        print(e)
+        print("Error", e)
+        print(jsonify(result="Shlok-AI is currently unable to process your request. Please try again later."))
         return jsonify(result="Shlok-AI is currently unable to process your request. Please try again later.")
 
 def signal_handler(signal, frame):
