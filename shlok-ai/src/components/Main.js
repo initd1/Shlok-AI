@@ -90,7 +90,7 @@ const MainLayout = () => {
           </Content> */}
         </Layout>
       </Layout>
-        <Footer style={{ textAlign: 'center' }}>
+        <Footer style={{ textAlign: 'right' }}>
           <p class="footer-style">
             Shlok-AI ©2023 Made with <img src="heart.svg" alt="heart" width="20" height="20"/> 
               &nbsp;for&nbsp;
