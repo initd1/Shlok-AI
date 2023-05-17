@@ -112,11 +112,25 @@
   margin: 16px 0 16px 24px;
 }
 
+.rc-textarea {
+  font-family: cursive;
+  font-size: large;
+  font-weight: bold;
+}
+
 .ai-response {
   font-family: cursive;
   font-size: large;
   font-weight: bold;
   color: #eb8304e6;
+}
+
+.ai-heading {
+  font-family: cursive;
+  font-size: large;
+  font-weight: bold;
+  /* color: #eb8304e6; */
+  text-align: center;
 }
 .footer-style {
   word-spacing: 2px;

@@ -39,13 +39,17 @@ function ShlokaForm() {
   const renderCard = (title, content) => {
     return (
       <Card
+        type="inner"
         bordered
         style={{
           textAlign: 'center',
           marginTop: 16,
         }}
       >
-        <Meta title={title} description={content} />
+        {/* <Meta title={`Shlok-AI Responds to: "${prompt}"`} description={<p className="ai-response">{prevResult}</p>} /> */}
+        <Meta 
+          title={<p className="ai-heading">{title}</p>}
+          description={<p className="ai-response">{content}</p>} />
       </Card>
     );
   };
