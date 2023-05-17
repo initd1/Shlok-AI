@@ -1,10 +1,11 @@
 import openai
+import json
 from Common.utils import KeyFetcher
 from Common.utils import CostCalculator
 
 
-def shlokAI(prompt):
-    user_query = prompt
+def shlokAI(user_prompt):
+    # user_query = prompt
     keyfetch = KeyFetcher()
     openai.api_key = keyfetch.getOpenAIApiKey()
     print(openai.api_key)
@@ -12,50 +13,72 @@ def shlokAI(prompt):
     model = "gpt-3.5-turbo"
     tokens_used = 0
     # Prepare ShlokAI
-    messages.append(
-        {
-            "role": "user",
-            "content": """
-            You are a scholar in sanskrit who has been practising vedic dharma and also been a professor of vedic studies in a premium institution, where pupils inclined in the thirst for knowledge of the Hindu Vedic Brahmanic culture and virtues seek your guidance. You have also been teaching Sanskrit to students from the basic level to intermediate. You can easily translate any given sanskrit verse, typed in english, or sanskrit script and would like to endeavour to help the masses understand  the various shlokas that are relevant to leading a good life taken from sacred texts such as Bhagavat Gita, Vishnu Purana, Vedas,Upanishads  etc. We seek your deep knowledge and understanding in Sanatana Dharma as a great boon to our society. I will be asking you the meaning of any verse I come across and would like you to give me an easy to understand translation in english including additional details such as Relevance, Context of the shloka/verse, and Occasion that it is used for, and which scripture it was taken from:
-            Below is the format:
-            - Verse in Sanskrit script
-            - Verse in Tamil script
-            - Translation 
-            - Relevance
-            - Context
-            - Occasion/Usage of verse
-            - Source scripture with verse or chapter number if possible
-            - Author
-            I just want you to respond with 'Namaste' and wait for the sankrit verse to translate. I do not want you to give me any disclaimers that you are not an expert
-            """,
-        }
-    )
+    shlok_ai_instructions = f"""
+    You are a practising Hindu scholar in Sanskrit well versed in Vedic Dharma. You are well versed in all the sacred scriptures such as \
+    Bhagavat Gita, Puranas, Vedas, Stotras, Upanishads, 4000 Divya Prabandham, etc. I will be asking you the meaning of any verse \
+    and would like you to give me an easy to understand explanation. 
 
+    Only respond with the message: <"response":"Namaste, I am ready to help you with your query regarding any Shloka">
+
+    Output format in IETF RFC 8259 JSON specification:
+    - Verse in English        
+    - Verse in Sanskrit
+    - Verse in Tamil
+    - Meaning 
+    - Relevance
+    - Context
+    - Usage
+    - Source
+    - Author of Source
+
+    Follow the below conditions step by step, while providing the output:
+    1. If the question is too generic or unrelated to India, Bharat, Vedic, Spirituality, Hinduism, Culture etc., please respond with the message: \
+    <"response":"I am unable to provide an explanation for this query. Please ask a question related to India, Bharat, Vedic, Spirituality, Hinduism, Culture etc.">
+    2. There must be no extra text except for what the output format requires.
+    3. If any value for the required keys is not available, do not add the key in the JSON output.
+    4. If you are unable to provide an explanation for an input, please output response in JSON format with the key \"Error\" and explain \
+    why you are unable to provide an explanation.
+    5. Do not provide any disclaimers that you are not a scholar in the subject.
+    """
+
+    # Set user submitted query
+    user_prompt = user_prompt
+    print("User Prompt: ", user_prompt)
+    shlok_ai_prompt = f"""
+    Follow the instructions delimited by triple backticks step by step. \
+    Instructions: ```{shlok_ai_instructions}``` \
+    Respond to user query delimited by angle brackets: <{user_prompt}>"""
+    print("ShlokAI Prompt: ", shlok_ai_prompt)
     # Query the model
-    preparation_prompt = openai.ChatCompletion.create(
-        model=model, messages=messages, max_tokens=1024, temperature=0.8
+    messages = [{"role": "user", "content": shlok_ai_prompt}]
+    response_raw = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        temperature=0, # this is the degree of randomness of the model's output
+        # stream=True
     )
-
-    preparation_response = preparation_prompt.choices[0].message["content"]
-    tokens_used = tokens_used + preparation_prompt.usage["total_tokens"]
+    
+    query_response = response_raw.choices[0].message["content"]
+    print("query_response:", query_response)
+    # response_content = ''.join(response_raw).strip()
+    # print("response_content:", response_content)
+    tokens_used = tokens_used + response_raw.usage["total_tokens"]
 
     # TODO: Convert the below print statements to log statements using logger
-    print("Introductory response: ", preparation_response)
+    print("Response: ", query_response)
     print("Tokens Used: ", tokens_used)
 
-    # Append Preparation response to messages
-    messages.append({"role": "assistant", "content": preparation_response})
+    try:
+        json.loads(query_response)
+    except Exception as e:
+        print("Response is not in proper JSON format. Please try again.")
+        print("error: ", e)
+        return json.dumps({"error": e})
+    
+    shlokai_output = json.loads(query_response)
 
-    # Query the model with user query
-    messages.append({"role": "user", "content": user_query})
-    completion = openai.ChatCompletion.create(model=model, messages=messages)
-
-    query_response = completion.choices[0].message["content"]
-    print("Current Tokens Used before adding query response: ", tokens_used)
-    tokens_used = tokens_used + completion.usage["total_tokens"]
-    # TODO: Convert the below print statements to log statements using logger
-    print("Response: \n", query_response)
-    print("Total Tokens Used: ", tokens_used)
+    for key in shlokai_output:
+        print(key, ":", shlokai_output[key])
 
     # Instantiate CostCalculator
     costcalc = CostCalculator(tokens_used, model)
