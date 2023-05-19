@@ -15,7 +15,7 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, i
   return {
     key: `sub${key}`,
     icon: React.createElement(icon),
-    label: `subnav ${key}`,
+    label: `Menu ${key}`,
     children: new Array(2).fill(null).map((_, j) => {
       const subKey = index * 2 + j + 1;
       return {
@@ -31,10 +31,6 @@ const MainLayout = () => {
   } = theme.useToken();
   return (
     <Layout>
-      <Header className="header">
-        <div className="logo" />
-        <Menu className='header' mode="horizontal" defaultSelectedKeys={['1']} items={items1} />
-      </Header>
       <Layout>
         <Sider
           width={150}
@@ -43,7 +39,7 @@ const MainLayout = () => {
           //   background: colorBgContainer,
           // }}
         >
-          <Menu
+          <Menu className="sidebar"
             mode="inline"
             defaultSelectedKeys={['1']}
             defaultOpenKeys={['sub1']}
@@ -75,6 +71,7 @@ const MainLayout = () => {
               <Space>
 
                 <p className='heading'><i>Shlok-AI</i></p>
+                {/* <p className='sub-heading'>tag-line ...</p> */}
               </Space>
             </Typography>
 

@@ -1,7 +1,7 @@
 .header {
-  background-color: #FDC921;
-  /* background-color: rgba(103, 152, 192, 1);
-  background-image: linear-gradient(150deg, rgba(103, 152, 192, 1) 29%, rgba(255, 253, 247, 1) 100%); */
+  background-color: #240854;
+  /* background-color: rgba(145, 73, 1, 1);
+  background-image: linear-gradient(89deg, rgba(145, 73, 1, 1) 29%, rgba(254, 195, 74, 1) 100%); */
   /* font-family: cursive; */
   /* font-weight: bold; */
   font-size: large;
@@ -17,8 +17,25 @@
   
 }
 /* Side bar */
-.ant-layout-sider-children {
+/* .ant-layout-sider-children {
   background-color: #8d0707;
+} */
+
+.sidebar {
+  /* background-color: #120d6e; */
+  background-color: rgba(145, 73, 1, 1);
+  background-image: linear-gradient(60deg, rgba(145, 73, 1, 1) 29%, rgba(254, 195, 74, 1) 100%);
+  /* font-family: cursive; */
+  /* font-weight: bold; */
+  font-size: large;
+  /* color: #8E561E; */
+  /* height: 550px; */
+  /* background-image: url("../public/lamp.png"); */
+  /* background-repeat: no-repeat; */
+  /* background-size: linear-gradient(rgba(255,255,255,.5), #F5BC5F), cover; */
+  background-position: center;
+  backface-visibility: hidden;
+  /* opacity: 1; */
 }
 
 .ant-menu-item-selected {
@@ -48,13 +65,25 @@
   /* font-style: italic; */
   font-weight: bold;
   padding-top: 2px;
-  color: #5C3600;
+  color: #fdfdfe;
   text-align: center;
 }
 
+.sub-heading {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20px;
+  /* font-style: italic; */
+  font-weight: bold;
+  padding-top: 2px;
+  color: #5188E0;
+  text-align: center;
+}
 .ant-layout {
   min-height: 100vh;
   background-color: #FFFDF7;
+  background-image: url('../public/background1.png');
+  background-repeat: no-repeat;
+  background-size: cover;
   /* background-color: rgba(252, 162, 18, 1);
   background-image: linear-gradient(150deg, rgba(252, 162, 18, 1) 29%, rgba(81, 136, 224, 1) 100%); */
 }
@@ -158,7 +187,7 @@
   font-family: cursive;
   font-size: large;
   font-weight: bold;
-  color: #FCC921;
+  color: #5188E0;
 }
 
 .ant-card {
@@ -179,7 +208,7 @@
   /* font-family: ui-rounded;  */
   font-size: large;
   padding-top: 15px;
-  color: #5C3600;
+  color: #914901;
   text-align: center;
   /* text-shadow: 2px 2px #f8f8f8e6; */
 }
