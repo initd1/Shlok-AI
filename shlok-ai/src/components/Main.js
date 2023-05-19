@@ -33,14 +33,15 @@ const MainLayout = () => {
     <Layout>
       <Header className="header">
         <div className="logo" />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} items={items1} />
+        <Menu className='header' mode="horizontal" defaultSelectedKeys={['1']} items={items1} />
       </Header>
       <Layout>
         <Sider
           width={150}
-          style={{
-            background: colorBgContainer,
-          }}
+          className="sidebar"
+          // style={{
+          //   background: colorBgContainer,
+          // }}
         >
           <Menu
             mode="inline"
@@ -55,14 +56,14 @@ const MainLayout = () => {
         </Sider>
         <Layout
           style={{
-            padding: '15px 15px 24px',
+            padding: '1px 15px 24px',
           }}
         >         
-          <Content
+          <Content className="site-layout-background"
             style={{
               padding: 24,
               margin: 0,
-              minHeight: 1200,
+              minHeight: 1100,
               // backgroundImage: "url('background.jpg')",
               // backgroundSize: 'cover',
               // backgroundRepeat: 'no-repeat',
@@ -72,7 +73,8 @@ const MainLayout = () => {
           >
             <Typography className="text-center mt-5">
               <Space>
-                <h1><b><i>Shlok-AI</i></b></h1>
+
+                <p className='heading'><i>Shlok-AI</i></p>
               </Space>
             </Typography>
 

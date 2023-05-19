@@ -39,16 +39,18 @@ function ShlokaForm() {
   const renderCard = (title, content) => {
     return (
       <Card
-        type="inner"
-        bordered
+        // bordered
         style={{
+          color: '#e9c46a',
           textAlign: 'center',
           marginTop: 16,
         }}
+        type="inner"
+        title={<p className="ai-heading">{title}</p>}
       >
         {/* <Meta title={`Shlok-AI Responds to: "${prompt}"`} description={<p className="ai-response">{prevResult}</p>} /> */}
         <Meta 
-          title={<p className="ai-heading">{title}</p>}
+          // title={<p className="ai-heading">{title}</p>}
           description={<p className="ai-response">{content}</p>} />
       </Card>
     );
@@ -70,7 +72,7 @@ function ShlokaForm() {
   return (
     <div className="text-center mt-5">
       <form onSubmit={handleSubmit}>
-        <InputGroup>
+        <InputGroup className='search-bar-box'>
           <Textarea
             placeholder="Ask a question"
             name="prompt"
