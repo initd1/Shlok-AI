@@ -69,7 +69,6 @@ const MainLayout = () => {
           >
             <Typography className="text-center mt-5">
               <Space>
-
                 <p className='heading'><i>Shlok-AI</i></p>
                 {/* <p className='sub-heading'>tag-line ...</p> */}
               </Space>

@@ -16,17 +16,14 @@
   
   
 }
-/* Side bar */
-/* .ant-layout-sider-children {
-  background-color: #8d0707;
-} */
 
 .sidebar {
   /* background-color: #120d6e; */
   background-color: rgba(145, 73, 1, 1);
   background-image: linear-gradient(60deg, rgba(145, 73, 1, 1) 29%, rgba(254, 195, 74, 1) 100%);
-  /* font-family: cursive; */
-  /* font-weight: bold; */
+  font-family: 'Times New Roman', Times, serif;
+  font-size: large;
+  /* font-weight: bold;
   font-size: large;
   /* color: #8E561E; */
   /* height: 550px; */
@@ -67,6 +64,7 @@
   padding-top: 2px;
   color: #fdfdfe;
   text-align: center;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 .sub-heading {
@@ -81,7 +79,7 @@
 .ant-layout {
   min-height: 100vh;
   background-color: #FFFDF7;
-  background-image: url('../public/background1.png');
+  background-image: url('../public/background-enhanced.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   /* background-color: rgba(252, 162, 18, 1);

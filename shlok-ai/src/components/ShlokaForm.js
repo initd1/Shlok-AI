@@ -74,7 +74,7 @@ function ShlokaForm() {
       <form onSubmit={handleSubmit}>
         <InputGroup className='search-bar-box'>
           <Textarea
-            placeholder="Type/Paste a Shloka to understand OR Ask any question about Indian culture, Hinduism, Vedic Scriptures or Sanatana Dharma."
+            placeholder="Type/Paste any Shloka or Hindu verse to understand OR Ask any question about Indian culture, Hinduism, Vedic Scriptures or Sanatana Dharma."
             name="prompt"
             value={prompt}
             onChange={(e) => setQuestion(e.target.value)}
