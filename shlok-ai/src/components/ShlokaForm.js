@@ -11,9 +11,9 @@ const { Meta } = Card;
 function ShlokaForm() {
   const [prompt, setQuestion] = useState('');
   const [result, setResult] = useState('');
-  const [prevResult, setPrevResult] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
   const onChange = (checked) => {
     setLoading(!checked);
   };
@@ -21,16 +21,20 @@ function ShlokaForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(null); // reset error message on new submit
+    setError(null);
+
     try {
       const response = await axios.post('http://localhost:5001/api/shloka-prompt', { prompt });
-      setResult(response.data.result);
-      setPrevResult(result);
+      const { data } = response;
+      console.log(response);
+      setResult(data.Result); // Set the result directly
+
+      if (data.Error) {
+        setError(data.Error);
+      }
     } catch (error) {
       console.log(error);
-      // display error message to user
-      console.log(error);
-      setError("An error occurred:" + error + "\nPlease try again later."); // set error message
+      setError('An error occurred. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -39,7 +43,6 @@ function ShlokaForm() {
   const renderCard = (title, content) => {
     return (
       <Card
-        // bordered
         style={{
           color: '#e9c46a',
           textAlign: 'center',
@@ -48,16 +51,13 @@ function ShlokaForm() {
         type="inner"
         title={<p className="ai-heading">{title}</p>}
       >
-        {/* <Meta title={`Shlok-AI Responds to: "${prompt}"`} description={<p className="ai-response">{prevResult}</p>} /> */}
-        <Meta 
-          // title={<p className="ai-heading">{title}</p>}
-          description={<p className="ai-response">{content}</p>} />
+        <Meta description={<p className="ai-response">{content}</p>} />
       </Card>
     );
   };
 
   const renderShlokaCards = () => {
-    const shlokaData = JSON.parse(result);
+    const shlokaData = result ? JSON.parse(result) : null;
     const cards = [];
 
     for (const key in shlokaData) {
@@ -88,25 +88,17 @@ function ShlokaForm() {
         </InputGroup>
       </form>
       <Divider />
-      {/* Display the previous result if there is one */}
-      {/* {prevResult && (
-        <Card bordered style={{ textAlign: 'center', marginTop: 16 }}>
-          <Meta title={`Shlok-AI Responds to: "${prompt}"`} description={<p className="ai-response">{prevResult}</p>} />
-        </Card>
-      )} */}
-      {/* While results are loading, display the loading card animation */}
       {loading && (
         <div>
           <Switch checked={!loading} onChange={onChange} />
           <Card type="inner" bordered={false} style={{ textAlign: 'center', marginTop: 16 }} loading={loading}></Card>
         </div>
       )}
-      {/* If an error occurred, display the error message */}
       {error && <Alert message={error} type="error" />}
-      {/* Once results have loaded, display the results in separate cards */}
       {result && renderShlokaCards()}
       <Divider />
     </div>
   );
 }
+
 export default ShlokaForm;
