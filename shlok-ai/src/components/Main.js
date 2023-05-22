@@ -32,7 +32,7 @@ const MainLayout = () => {
   return (
     <Layout>
       <Layout>
-        <Sider
+        {/* <Sider
           width={150}
           className="sidebar"
           // style={{
@@ -49,7 +49,7 @@ const MainLayout = () => {
             }}
             items={items2}
           />
-        </Sider>
+        </Sider> */}
         <Layout
           style={{
             padding: '1px 15px 24px',

@@ -30,14 +30,15 @@ def shlokAI(user_prompt):
     - Usage
     - Source
     - Author of Source
+    - Generic Explanation
 
     Follow the below conditions step by step, while providing the output:
     1. If the question is too generic or unrelated to India, Bharat, Vedic, Spirituality, Hinduism, Culture etc., please respond with the message: \
     <"Error":"I am unable to provide an explanation for this query. Please ask a question related to India, Bharat, Spirituality, Hindu Philosophy, Culture etc.">
     2. There must be no extra text except for what the output format requires.
     3. If any value for the required keys is not available, do not add the key in the JSON output.
-    4. If you are unable to provide an explanation for an input, please output response in JSON format with the key \"Error\" and explain \
-    why you are unable to provide an explanation.
+    4. If you are unable to provide an explanation for an input for any other reason, please output response in IETF RFC 8259 JSON specification \
+    <"Error":"reason for error">
     5. Do not provide any disclaimers that you are not a scholar in the subject.
     """
 
@@ -72,8 +73,8 @@ def shlokAI(user_prompt):
         json.loads(query_response)
     except Exception as e:
         print("Response is not in proper JSON format. Please try again.")
-        print("error: ", e)
-        return json.dumps({"error": e})
+        print("Error: ", e)
+        return json.dumps({"Error": e})
     
     shlokai_output = json.loads(query_response)
 
