@@ -1,9 +1,10 @@
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
 import { Layout, Menu, Space, theme } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import ShlokaForm from './ShlokaForm';
 import '../App.css';
 import {Typography} from 'antd';
+import VideoModal from './VideoModal';
 
 const { Header, Content, Sider, Footer } = Layout;
 const items1 = ['1', '2'].map((key) => ({
@@ -26,12 +27,16 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, i
   };
 });
 const MainLayout = () => {
+  const [videoModalOpen, setVideoModalOpen] = useState(true);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   return (
     <Layout>
       <Layout>
+        {videoModalOpen && (
+          <VideoModal isOpen={videoModalOpen} closeModal={() => setVideoModalOpen(false)} />
+        )}
         {/* <Sider
           width={150}
           className="sidebar"
@@ -73,7 +78,6 @@ const MainLayout = () => {
                 {/* <p className='sub-heading'>tag-line ...</p> */}
               </Space>
             </Typography>
-
             <ShlokaForm />
           </Content>
           {/* <Content
