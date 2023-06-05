@@ -11,6 +11,7 @@ def signal_handler(signal, frame):
     logging.info("You have requested to exit the program using Ctrl+C. Exiting.")
     sys.exit(0)
 
+
 def shlokAI():
     keyfetch = KeyFetcher()
     openai.api_key = keyfetch.getOpenAIApiKey()
@@ -57,15 +58,15 @@ def shlokAI():
         response_raw = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=messages,
-            temperature=0, # this is the degree of randomness of the model's output
-            stream=True
+            temperature=0,  # this is the degree of randomness of the model's output
+            stream=True,
         )
         # Stream output as it's generated
         # create variables to collect the stream of chunks
         collected_chunks = []
         collected_messages = []
         for chunk in response_raw:
-            try: 
+            try:
                 content = chunk["choices"][0]["delta"]["content"]
                 if content:
                     collected_chunks.append(content)
@@ -74,8 +75,8 @@ def shlokAI():
             except:
                 pass
         print(collected_chunks)
-        # Strip extra characters from final output        
-        response_content = ''.join(collected_chunks).strip()
+        # Strip extra characters from final output
+        response_content = "".join(collected_chunks).strip()
         print(response_content)
         print("Tokens used for this prompt: ", response_raw.usage["total_tokens"])
 
@@ -85,14 +86,15 @@ def shlokAI():
         except:
             print("Response is not in proper JSON format. Please try again.")
             continue
-        
+
         shlokai_output = json.loads(response_content)
-        
+
         # Separate output into different variables if required for front end
         # if shlokai_output["Relevance"]:
         #     print(shlokai_output["Relevance"])
         # else:
         #     pass
+
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)

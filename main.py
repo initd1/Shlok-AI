@@ -20,7 +20,7 @@ def accept_user_input():
     # except Exception as er:
     #     print(er)
     #     logging.critical(er)
-    #     return   
+    #     return
     help_message = """
     usage: main.py [-h] [-t] [-w]
 
@@ -32,8 +32,12 @@ def accept_user_input():
     -w, --web             Run ShlokAI in Web mode
     """
     if len(sys.argv) == 1:
-        print("Please choose a mode to run ShlokAI. View Help menu for modes: python main.py -h")
-        logging.critical("Please choose a mode to run ShlokAI. View Help menu for modes: python main.py -h")
+        print(
+            "Please choose a mode to run ShlokAI. View Help menu for modes: python main.py -h"
+        )
+        logging.critical(
+            "Please choose a mode to run ShlokAI. View Help menu for modes: python main.py -h"
+        )
         return
     if sys.argv[1] == "-h" or sys.argv[1] == "--help":
         print(help_message)
@@ -49,7 +53,9 @@ def accept_user_input():
     #     shlok_ai_web.shlokAI()
     else:
         print("Please choose a mode to run ShlokAI")
-        logging.critical("Please choose a mode to run ShlokAI. View Help menu for modes: python main.py -h")
+        logging.critical(
+            "Please choose a mode to run ShlokAI. View Help menu for modes: python main.py -h"
+        )
         return
 
 
