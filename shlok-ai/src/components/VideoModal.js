@@ -11,9 +11,16 @@ const VideoModal = ({ isOpen, closeModal }) => {
       centered
       width="80%"
     >
-      <video controls style={{ width: '100%' }}>
-        <source src="../public/shlok-ai-edited.mp4" type="video/mp4" />
-      </video>
+    <iframe src='https://www.youtube.com/embed/U2lNVSMqiAA'
+        title='Shlok-AI Introduction'
+        width="560"
+        height="750"
+        
+        // frameBorder='0'
+        // allow="accelerometer; autoplay; encrypted-media;"
+        allowFullScreen
+        
+    />
     </Modal>
   );
 };
