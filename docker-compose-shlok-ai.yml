@@ -1,0 +1,12 @@
+version: '3'
+services:
+  shlok-api:
+    container_name: shlok-ai-api
+    build: .
+    ports:
+      - "5001:5001"
+  shlok-ui:
+    container_name: shlok-ai-ui
+    build: shlok-ai/.
+    ports:
+      - "3000:80"
