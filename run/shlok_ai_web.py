@@ -18,8 +18,6 @@ def shlokAI(user_prompt):
     Bhagavat Gita, Puranas, Vedas, Stotras, Upanishads, 4000 Divya Prabandham, etc. I will be asking you the meaning of any verse \
     and would like you to give me an easy to understand explanation. 
 
-    Only respond with the message: "Response":"Namaste, I am ready to help you with your query regarding any Shloka"
-
     Output format in IETF RFC 8259 JSON specification:
     - Verse in English        
     - Verse in Sanskrit
