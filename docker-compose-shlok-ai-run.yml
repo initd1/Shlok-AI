@@ -1,0 +1,15 @@
+version: '3'
+services:
+  shlok-api:
+    container_name: shlok-api
+    image: 603077400146.dkr.ecr.ap-south-1.amazonaws.com/shlok-api:latest
+    ports:
+      - "5001:5001"
+  shlok-ui:
+    container_name: shlok-ui
+    image: 603077400146.dkr.ecr.ap-south-1.amazonaws.com/shlok-ui:latest
+    volumes:
+      - ./shlok-ai/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./certs/letsencrypt:/etc/nginx/conf.d/letsencrypt
+    ports:
+      - "443:443"
