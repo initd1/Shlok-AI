@@ -1,12 +1,12 @@
-import React from 'react';
-import ShlokaForm from './components/ShlokaForm';
+// import React from 'react';
+// import ShlokaForm from './components/ShlokaForm';
 
-function App() {
-  return (
-    <div className="App">
-      <ShlokaForm />
-    </div>
-  );
-}
+// function App() {
+//   return (
+//     <div className="App">
+//       <ShlokaForm />
+//     </div>
+//   );
+// }
 
-export default App;
+// export default App;

@@ -84,3 +84,12 @@ To run tests without print output:
 pytest
 ```
 > **Warning** pytest will not run if python site-packages are not already in your global path!
+
+# Container deployment
+Use docker compose to provision the microservices for shlok-ai API and shlok-ai UI. 
+
+The below command will build the images as well as bring up both the containers:
+
+```
+docker-compose -f docker-compose-shlok-ai.yml up -d --build
+```
