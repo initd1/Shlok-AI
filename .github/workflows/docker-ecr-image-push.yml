@@ -34,9 +34,9 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build a docker container and push it to ECR 
-        docker build -t '${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}' shlok-ai/.
+        docker build -t 603077400146.dkr.ecr.ap-south-1.amazonaws.com/shlok-api:${{ env.IMAGE_TAG }}' shlok-ai/.
         echo "Pushing image to ECR: ${{ env.IMAGE_TAG }} with registry ${{ env.ECR_REGISTRY }} and repo ${{ env.ECR_REPOSITORY }}"
-        docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+        docker push 603077400146.dkr.ecr.ap-south-1.amazonaws.com/shlok-api:${{ env.IMAGE_TAG }}
         echo "name=image::${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}" >> $GITHUB_OUTPUT
         
     - name: Build, tag, and push the image to Amazon ECR
