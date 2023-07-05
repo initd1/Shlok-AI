@@ -23,16 +23,19 @@ def shloka_sage_ai():
         # If the result is an error, return the error message
         if "Error" in result:
             print("Error:", result)
+            logging.error("Error!!:", result)
             return jsonify(Error=result)
 
         # If the result is not an error, return the result
         else:
             # result_json = json.dumps(result)
             print("Result:", result)
+            logging.info("Result is:", result)
             return jsonify(Result=result)
 
     except Exception as e:
         print("Error:", e)
+        logging.error("Error!!:", e)
         error_message = "Shlok-AI is currently unable to process your request. Please try again later."
         return jsonify(Error=error_message)
 
