@@ -1,0 +1,54 @@
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+    branches: [ master ]
+
+name: shlok-ai-app
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.SECRET_KEY }}
+        aws-region: ap-south-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push the image to Amazon ECR
+      id: build-shlok-ui
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: ${{ secrets.REPO1_NAME }}
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        # Build a docker container and push it to ECR 
+        docker build -t 603077400146.dkr.ecr.ap-south-1.amazonaws.com/shlok-ui:latest shlok-ai/.
+        echo "Pushing image to ECR: latest with registry ${{ env.ECR_REGISTRY }} and repo ${{ env.ECR_REPOSITORY }}"
+        docker push 603077400146.dkr.ecr.ap-south-1.amazonaws.com/shlok-ui:latest
+        echo "name=image::603077400146.dkr.ecr.ap-south-1.amazonaws.com/shlok-ui:latest" >> $GITHUB_OUTPUT
+        
+    - name: Build, tag, and push the image to Amazon ECR
+      id: build-shlok-api
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: ${{ secrets.REPO2_NAME }}
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        # Build a docker container and push it to ECR 
+        docker build -t 603077400146.dkr.ecr.ap-south-1.amazonaws.com/shlok-api:latest .
+        echo "Pushing image to ECR..."
+        docker push 603077400146.dkr.ecr.ap-south-1.amazonaws.com/shlok-api:latest
+        echo "name=image::603077400146.dkr.ecr.ap-south-1.amazonaws.com/shlok-api:latest" >> $GITHUB_OUTPUT
+

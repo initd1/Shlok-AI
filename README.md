@@ -25,6 +25,21 @@ __Windows__
 pip install -r requirements.txt
 ```
 
+6. Ensure node and npm are installed in your environment
+
+<!-- 7. Install required packages in the npm app
+```bash
+cd shlok-ai
+npm install
+``` -->
+
+<!-- 8. Install required packages in the react app
+```bash
+cd shlok-ai
+
+```  -->
+
+
 ## Prerequisites
 1. Ensure `config.ini` file is created under Config directory
 2. Use `config.ini.template` file as a reference and fill the required details. 
@@ -36,6 +51,13 @@ pip install -r requirements.txt
     OPENAI_API_KEY=
     MODEL=
     ```
+
+## Start Shlok-AI
+1. Execute Flask API script so the API Endpoints are made available
+    - `python api.py`
+2. From the home folder of the npm app,
+    - `cd shlok-ai` 
+    - `npm run start`
 
 ## Testing
 
@@ -62,3 +84,12 @@ To run tests without print output:
 pytest
 ```
 > **Warning** pytest will not run if python site-packages are not already in your global path!
+
+# Container deployment
+Use docker compose to provision the microservices for shlok-ai API and shlok-ai UI. 
+
+The below command will build the images as well as bring up both the containers:
+
+```
+docker-compose -f docker-compose-shlok-ai.yml up -d --build
+```
