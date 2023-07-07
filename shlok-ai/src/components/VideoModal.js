@@ -15,15 +15,21 @@ const VideoModal = ({ isOpen, closeModal }) => {
       }}
     >
       <p style={{ fontSize: '18px', marginBottom: '20px' }}>
-        Welcome to Shlok-AI! This website is designed to help you explore and understand Shlokas and Hindu scriptures.
-        To get started, follow these steps:
+        Shlok-AI: Experience the richness of the Indian civilization and ancient Vedic literature with AI-powered insights.
+        Presenting Shlok-AI, a ready to use interface to understand the essence of the culture of Bharat/India.
       </p>
-      <ol style={{ fontSize: '16px' }}>
-        <li>Enter a Shloka or Hindu verse in the search bar above.</li>
-        <li>Click the search button or press Enter to submit your query.</li>
-        <li>Shlok-AI will process your request and provide the interpretation and insights related to your query.</li>
-        <li>Explore the results and gain a deeper understanding of the spiritual and cultural significance of the Shlokas.</li>
+      <ol style={{ fontSize: '18px' }}>
+        <li>Would you love to know more about the Indian heritage and it's cultures?</li>
+        <li>Have you ever wondered what the different Sanskrit Shlokas actually mean?</li>
+        <li>Have you ever been curious to unlock the timeless teachings of Sanatana Dharma, the eternal way of life for all Hindus?</li>
       </ol>
+      <p style={{ fontSize: '18px', marginBottom: '20px' }}>
+          Enter a Shloka or Hindu verse in the search bar.
+      </p>
+      <p style={{ fontSize: '18px', marginBottom: '20px' }}>OR</p>
+      <p style={{ fontSize: '18px', marginBottom: '20px' }}>                  
+          Ask any question related to Indian Civilization and Culture, Yoga, Hinduism, Vedic Scriptures, Sanatana Dharma etc.
+      </p>
       <div style={{ position: 'relative', paddingTop: '56.25%', width: '100%' }}>
         <iframe
           title='Shlok-AI Introduction'
