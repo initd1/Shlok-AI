@@ -17,6 +17,8 @@ RUN npm run build
 
 FROM nginx:1.25.0-alpine as prod-stage
 COPY --from=build-stage /app/build /usr/share/nginx/html
+COPY nginx/* /usr/share/nginx/html
+# COPY nginx/50x.html /usr/share/nginx/html/50x.html
 RUN mkdir /etc/nginx/conf.d/letsencrypt
 # EXPOSE 80
 EXPOSE 443
