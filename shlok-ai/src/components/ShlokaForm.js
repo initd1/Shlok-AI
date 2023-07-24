@@ -24,7 +24,7 @@ function ShlokaForm() {
     setError(null);
 
     try {
-      const response = await axios.post('http://localhost:5001/api/shloka-prompt', { prompt });
+      const response = await axios.post('/api/shloka-prompt', { prompt });
       const { data } = response;
       console.log(response);
       setResult(data.Result); // Set the result directly
