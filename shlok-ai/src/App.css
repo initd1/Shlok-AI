@@ -62,54 +62,79 @@
 }
 
 /* Search Bar */
-.search-bar {
-  border-radius: 25px;
-  width: auto;
-  flex-grow: 1;
-  height: 36px;
-  margin-right: 5px;
-  padding: 6px 12px;
-  font-size: 1rem;
-  line-height: 1.42857;
-  color: #5C3600;
-  background-color: #F7EDE2;
-  background-image: none;
-  border-color: #FDD85D;
-  border-radius: 25px;
-  box-shadow: 2px 2px 2px #C18335;
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+.search-bar-box {
+  position: relative;
+  width: 100%;
 }
 
+.search-bar-with-clear {
+  display: flex;
+  align-items: flex-start; /* Adjust the alignment to the top */
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #5188e0;
+  border-radius: 30px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  background-color: #f7f7f7;
+}
+
+.search-bar {
+  flex-grow: 1;
+  height: auto; /* Allow the input to adjust its height based on content */
+  min-height: 36px; /* Set a minimum height to ensure the clear button always stays inside */
+  font-size: 1rem;
+  line-height: 1.42857;
+  color: #333;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+/* Search Button */
 .shloka-submit-button {
   flex-shrink: 0;
   height: 40px;
-  padding: 6px 12px;
-  line-height: 1.42857;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  background-image: none;
-  border: 1px solid transparent;
-  color: #ffffff;
-  background-color: #F7EDE2;
-  border-color: #F6BD60;
-  border-radius: 25px;
-  box-shadow: 2px 2px 2px #C18335;
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-}
-
-.shloka-search-bar {
+  width: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
-  width: 80%;
-  padding: 0.5rem 0.75rem;
-  font-size: 2rem;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  border: none;
+  border-radius: 50%;
+  background-color: #5188e0;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.shloka-submit-button:hover {
+  background-color: #466fad;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Clear Button */
+.shloka-clear-button {
+  flex-shrink: 0;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 10px; /* Adjust the top position to align with the top of the search bar */
+  right: 10px; /* Adjust the right position for the spacing from the right edge */
+  border: none;
+  border-radius: 50%;
+  background-color: #e5e5e5;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.shloka-clear-button:hover {
+  background-color: #d1d1d1;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* Video Modal */
