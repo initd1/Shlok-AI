@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { InputGroup } from 'react-bootstrap';
 import Textarea from 'rc-textarea';
 import axios from 'axios';
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { Card, Switch, Divider, Button, Alert } from 'antd';
 
 const { Meta } = Card;
@@ -13,6 +13,7 @@ function ShlokaForm() {
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  // const [inputValue, setInputValue] = useState('');
 
   const onChange = (checked) => {
     setLoading(!checked);
@@ -71,22 +72,42 @@ function ShlokaForm() {
 
   return (
     <div className="text-center mt-5">
-      <form onSubmit={handleSubmit}>
-        <InputGroup className='search-bar-box'>
-          <Textarea
-            placeholder="Type/Paste any Shloka or Hindu verse to understand OR Ask any question about Indian culture, Hinduism, Vedic Scriptures or Sanatana Dharma."
-            name="prompt"
-            value={prompt}
-            onChange={(e) => setQuestion(e.target.value)}
-            autoSize
-            rows={3}
-            className="search-bar"
-          />
-          <Button className="btn btn-primary shloka-submit-button" variant="primary" type="submit" onClick={handleSubmit}>
-            <SearchOutlined />
-          </Button>
-        </InputGroup>
-      </form>
+      <div className="text-center mt-5">
+        <form onSubmit={handleSubmit}>
+          <div className="search-bar-box">
+            <div className="search-bar-with-clear">
+              <Textarea
+                placeholder="Type/Paste any Shloka or Hindu verse to understand OR Ask any question about Indian culture, Hinduism, Vedic Scriptures or Sanatana Dharma."
+                name="prompt"
+                value={prompt}
+                onChange={(e) => setQuestion(e.target.value)}
+                autoSize
+                rows={3}
+                className="search-bar"
+              />
+              {/* Show the clear button only when there is text in the input field */}
+              {prompt && (
+                <Button
+                  className="btn btn-primary shloka-clear-button"
+                  variant="primary"
+                  type="button"
+                  onClick={() => setQuestion('')} // Clear the input field
+                >
+                  <CloseCircleOutlined />
+                </Button>
+              )}
+            </div>
+            {/* Show the search button by default */}
+            <Button
+              className="btn btn-primary shloka-submit-button"
+              variant="primary"
+              type="submit"
+              onClick={handleSubmit}
+            >
+              <SearchOutlined />
+            </Button>
+          </div>
+        </form>
       <Divider />
       {loading && (
         <div>
@@ -98,6 +119,7 @@ function ShlokaForm() {
       {result && renderShlokaCards()}
       <Divider />
     </div>
+  </div>
   );
 }
 
