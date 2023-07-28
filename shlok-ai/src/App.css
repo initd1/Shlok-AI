@@ -69,7 +69,8 @@
 
 .search-bar-with-clear {
   display: flex;
-  align-items: flex-start; /* Adjust the alignment to the top */
+  align-items: flex-start;
+  justify-content: center; /* Center the search button horizontally */
   width: 100%;
   padding: 0.5rem 0.75rem;
   border: 2px solid #5188e0;
@@ -80,8 +81,8 @@
 
 .search-bar {
   flex-grow: 1;
-  height: auto; /* Allow the input to adjust its height based on content */
-  min-height: 36px; /* Set a minimum height to ensure the clear button always stays inside */
+  height: auto;
+  min-height: 36px;
   font-size: 1rem;
   line-height: 1.42857;
   color: #333;
@@ -92,7 +93,9 @@
 
 /* Search Button */
 .shloka-submit-button {
-  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: 40px;
   width: 40px;
   display: flex;
@@ -105,6 +108,10 @@
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: background-color 0.2s, box-shadow 0.2s;
+  position: absolute;
+  top: 50%; /* Center the search button vertically */
+  right: 10px;
+  transform: translateY(-50%); /* Adjust vertical position */
 }
 
 .shloka-submit-button:hover {
@@ -135,6 +142,27 @@
 .shloka-clear-button:hover {
   background-color: #d1d1d1;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Center the search bar and search button for mobile viewers */
+@media (max-width: 576px) {
+  .search-bar-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-bar-with-clear {
+    width: 100%;
+    margin-bottom: 10px; /* Add spacing between search bar and search button */
+  }
+
+  .shloka-submit-button {
+    margin-left: 0; /* Remove the margin for the search button */
+    position: static; /* Remove absolute positioning for mobile */
+    transform: none; /* Remove vertical alignment for mobile */
+    margin-top: 10px; /* Add spacing between search bar and search button for mobile */
+  }
 }
 
 /* Video Modal */
