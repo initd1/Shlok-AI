@@ -1,14 +1,25 @@
 import openai
 import json
+import logging
+import datetime
 from Common.utils import KeyFetcher
 from Common.utils import CostCalculator
 
+# # Set up logging
+# log_filename = 'shlokai.log'
+# logging.basicConfig(filename=log_filename, level=logging.INFO,
+#                     format='%(asctime)s - %(levelname)s - %(message)s')
+
+# # Set up logging
+# log_filename = 'shlokai_debug.log'
+# logging.basicConfig(filename=log_filename, level=logging.DEBUG,
+#                     format='%(asctime)s - %(levelname)s - %(message)s')
 
 def shlokAI(user_prompt):
     # user_query = prompt
     keyfetch = KeyFetcher()
     openai.api_key = keyfetch.getOpenAIApiKey()
-    print(openai.api_key)
+    logging.debug("OpenAI API Key: %s", openai.api_key)
     messages = []
     model = "gpt-3.5-turbo"
     tokens_used = 0
@@ -42,12 +53,12 @@ def shlokAI(user_prompt):
 
     # Set user submitted query
     user_prompt = user_prompt
-    print("User Prompt: ", user_prompt)
+    logging.info("User Prompt: %s", user_prompt)
     shlok_ai_prompt = f"""
     Follow the instructions delimited by triple backticks step by step. \
     Instructions: ```{shlok_ai_instructions}``` \
     Respond to user query delimited by angle brackets: <{user_prompt}>"""
-    print("ShlokAI Prompt: ", shlok_ai_prompt)
+    # print("ShlokAI Prompt: ", shlok_ai_prompt)
     # Query the model
     messages = [{"role": "user", "content": shlok_ai_prompt}]
     response_raw = openai.ChatCompletion.create(
@@ -58,34 +69,28 @@ def shlokAI(user_prompt):
     )
     
     query_response = response_raw.choices[0].message["content"]
-    print("query_response:", query_response)
+    logging.info("Query Response: %s", query_response)
     # response_content = ''.join(response_raw).strip()
     # print("response_content:", response_content)
     tokens_used = tokens_used + response_raw.usage["total_tokens"]
 
-    # TODO: Convert the below print statements to log statements using logger
-    print("Response: ", query_response)
-    print("Tokens Used: ", tokens_used)
-
     try:
         json.loads(query_response)
     except Exception as e:
-        print("Response is not in proper JSON format. Please try again.")
-        print("Error: ", e)
+        logging.info("Response is not in proper JSON format. Please try again.")
+        logging.error("Error: %s", e)
         return json.dumps({"Error": e})
     
     shlokai_output = json.loads(query_response)
 
     for key in shlokai_output:
-        print(key, ":", shlokai_output[key])
+        logging.debug("%s: %s", key, shlokai_output[key])
 
     # Instantiate CostCalculator
     costcalc = CostCalculator(tokens_used, model)
     cost = costcalc.calculateCost(tokens_used, model_name=model)
-    # Convert to logger
-    print("Cost: US$ ", cost)
+    logging.debug("Cost: US$ %s", cost)
     return query_response
-
 
 # if __name__ == "__main__":
 #     shlokAI(prompt)

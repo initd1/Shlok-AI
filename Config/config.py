@@ -63,9 +63,13 @@ def configure_logging():
 
     if not os.path.isdir("Logs"):
         os.makedirs("Logs")
-    if not os.path.exists(os.path.join("Logs", "traceback.log")):
-        with open(os.path.join("Logs", "traceback.log"), "w") as fp:
-            fp.write("Created traceback.log as part of tests.")
+    if not os.path.exists(os.path.join("Logs", "shlokai.log")):
+        with open(os.path.join("Logs", "shlokai.log"), "w") as fp:
+            fp.write("Created shlokai.log as part of tests.")
+            fp.close()
+    if not os.path.exists(os.path.join("Logs", "shlokai_debug.log")):
+        with open(os.path.join("Logs", "shlokai_debug.log"), "w") as fp:
+            fp.write("Created shlokai_debug.log as part of tests.")
             fp.close()
 
     # Define log format
