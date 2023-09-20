@@ -1,4 +1,10 @@
-# Shlok-ai
+# SHLOK-AI
+## SHLOK-AI FEATURE PREVIEW
+[![[PREVIEW] Shlok-AI: Experience the richness of Vedic literature and Indian Civilization with AI](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D7SNpiyXNdIk)](https://www.youtube.com/watch?v=7SNpiyXNdIk)
+
+## SHLOK-AI FEATURE PREVIEW [EXTENDED]
+[![[EXTENDED] Shlok-AI: Experience the richness of Vedic literature and Indian civilization with AI](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DU2lNVSMqiAA)](https://www.youtube.com/watch?v=U2lNVSMqiAA)
+
 ## Installation instructions
 1. Clone the github repository
 `git clone https://github.com/initd1/Shlok-AI.git`
