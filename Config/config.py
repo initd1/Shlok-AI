@@ -14,7 +14,7 @@ def get_config(config_file_path):
     Returns:
         _type_: _description_
     """
-    """Read configuration from file and environment variables.  
+    """Read configuration from file and environment variables.
 
     :param str config_file_path: path to the configuration file
     :return: configuration values as a dictionary
@@ -22,7 +22,7 @@ def get_config(config_file_path):
     """
     config = configparser.ConfigParser()
     # read from file
-    config.read(config_file_path, encoding="utf-8")
+    config.read(config_file_path, encoding="latin-1")
     config.__dict__
 
     # read from environment variables
@@ -63,9 +63,13 @@ def configure_logging():
 
     if not os.path.isdir("Logs"):
         os.makedirs("Logs")
-    if not os.path.exists(os.path.join("Logs", "traceback.log")):
-        with open(os.path.join("Logs", "traceback.log"), "w") as fp:
-            fp.write("Created traceback.log as part of tests.")
+    if not os.path.exists(os.path.join("Logs", "shlokai.log")):
+        with open(os.path.join("Logs", "shlokai.log"), "w") as fp:
+            fp.write("Created shlokai.log as part of tests.")
+            fp.close()
+    if not os.path.exists(os.path.join("Logs", "shlokai.debug")):
+        with open(os.path.join("Logs", "shlokai.debug"), "w") as fp:
+            fp.write("Created shlokai.debug as part of tests.")
             fp.close()
 
     # Define log format
